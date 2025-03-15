@@ -78,7 +78,7 @@ def start_sim_script(port=5555, sim_seed=0, sim_args={}, debug=False):
 
 	os.chdir(base_ns3_dir)
 
-	ns3_string = ns3_path + ' run "' + sim_script_name
+	ns3_string = ns3_path + ' run --quiet "' + sim_script_name
 
 	if port:
 		ns3_string += ' --openGymPort=' + str(port)
@@ -94,9 +94,8 @@ def start_sim_script(port=5555, sim_seed=0, sim_args={}, debug=False):
 
 	ns3_string += '"'
 
-	debug = True
 	ns3_proc = None
-	if debug:
+	if True: # FIXME: 只用于测试
 		ns3_proc = subprocess.Popen(ns3_string, shell=True, stdout=None, stderr=None)
 	else:
 		# users were complaining that when they start example they have to wait 10 min for initialization.

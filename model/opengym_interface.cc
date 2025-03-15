@@ -166,9 +166,9 @@ OpenGymInterface::Init()
   Ptr<OpenGymSpace> obsSpace = GetObservationSpace();
   Ptr<OpenGymSpace> actionSpace = GetActionSpace();
 
-  NS_LOG_UNCOND("Simulation process id: " << ::getpid() << " (parent (waf shell) id: " << ::getppid() << ")");
-  NS_LOG_UNCOND("Waiting for Python process to connect on port: "<< connectAddr);
-  NS_LOG_UNCOND("Please start proper Python Gym Agent");
+  NS_LOG_INFO("Simulation process id: " << ::getpid() << " (parent (waf shell) id: " << ::getppid() << ")");
+  NS_LOG_INFO("Waiting for Python process to connect on port: "<< connectAddr);
+  NS_LOG_INFO("Please start proper Python Gym Agent");
 
   ns3opengym::SimInitMsg simInitMsg;
   simInitMsg.set_simprocessid(::getpid());
@@ -289,7 +289,7 @@ void
 OpenGymInterface::WaitForStop()
 {
   NS_LOG_FUNCTION (this);
-  NS_LOG_UNCOND("Wait for stop message");
+  NS_LOG_INFO("Wait for stop message");
   NotifyCurrentState();
 }
 
