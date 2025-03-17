@@ -93,7 +93,9 @@ class Ns3ZmqBridge(object):
                 if self.wafPid:
                     os.kill(self.wafPid, signal.SIGTERM)
                     self.wafPid = None
+                self.socket.close()
         except Exception as e:
+            self.socket.close()
             pass
 
     def _create_space(self, spaceDesc):
