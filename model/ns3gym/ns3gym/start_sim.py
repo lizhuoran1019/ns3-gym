@@ -67,7 +67,7 @@ def build_ns3_project(debug=True):
 	os.chdir(cwd)
 
 
-def start_sim_script(port=5555, sim_seed=0, sim_args={}, debug=False):
+def start_sim_script(port=5555, sim_seed=0, sim_args={}, ns3_args=[], debug=True):
 	"""
 	Actually run the ns3 scenario
 	"""
@@ -77,8 +77,17 @@ def start_sim_script(port=5555, sim_seed=0, sim_args={}, debug=False):
 	base_ns3_dir = os.path.dirname(ns3_path)
 
 	os.chdir(base_ns3_dir)
+	
+	if debug: 
+		# 增加环境变量NS_LOG='OpenGymInterface=info'
+		os.environ['NS_LOG'] = 'OpenGymInterface=info'
+	
+	ns3_string = ns3_path + ' run '
+	for arg in ns3_args:
+		ns3_string += arg
+		ns3_string += " "
 
-	ns3_string = ns3_path + ' run --quiet "' + sim_script_name
+	ns3_string += '"' + sim_script_name
 
 	if port:
 		ns3_string += ' --openGymPort=' + str(port)
