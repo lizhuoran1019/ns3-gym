@@ -42,7 +42,8 @@ class Ns3ZmqBridge(object):
         try:
             if port == 0 and self.startSim:
                 port = self.socket.bind_to_random_port('tcp://*', min_port=5001, max_port=10000, max_tries=100)
-                print("Got new port for ns3gm interface: ", port)
+                if debug:
+                    print("Got new port for ns3gm interface: ", port)
 
             elif port == 0 and not self.startSim:
                 print("Cannot use port %s to bind" % str(port) )
