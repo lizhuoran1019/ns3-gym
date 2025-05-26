@@ -67,22 +67,22 @@ def build_ns3_project(debug=True):
 	os.chdir(cwd)
 
 
-def start_sim_script(port=5555, sim_seed=0, sim_args={}, ns3_args=[], debug=True):
+def start_sim_script(ns3_path, sim_script_name, port=5555, sim_seed=0, sim_args={}, ns3_args=[], debug=True):
 	"""
 	Actually run the ns3 scenario
 	"""
-	cwd = os.getcwd()
-	sim_script_name = os.path.basename(cwd)
-	ns3_path = find_ns3_path(cwd)
-	base_ns3_dir = os.path.dirname(ns3_path)
+	# cwd = os.getcwd()
+	# sim_script_name = os.path.basename(cwd)
+	# ns3_path = find_ns3_path(cwd)
+	# base_ns3_dir = os.path.dirname(ns3_path)
 
-	os.chdir(base_ns3_dir)
+	# os.chdir(base_ns3_dir)
 	
 	if debug: 
 		# 增加环境变量NS_LOG='OpenGymInterface=info'
 		os.environ['NS_LOG'] = 'OpenGymInterface=info'
 	
-	ns3_string = ns3_path + ' run '
+	ns3_string = ns3_path + 'ns3 run '
 	for arg in ns3_args:
 		ns3_string += arg
 		ns3_string += " "
@@ -96,7 +96,7 @@ def start_sim_script(port=5555, sim_seed=0, sim_args={}, ns3_args=[], debug=True
 		ns3_string += ' --simSeed=' + str(sim_seed)
 
 	for key, value in sim_args.items():
-		ns3_string += " "
+		ns3_string += " --"
 		ns3_string += str(key)
 		ns3_string += "="
 		ns3_string += str(value)
@@ -141,5 +141,5 @@ def start_sim_script(port=5555, sim_seed=0, sim_args={}, ns3_args=[], debug=True
 		print("Started ns3 simulation script, Process Id: ", ns3_proc.pid)
 
 	# go back to my dir
-	os.chdir(cwd)
+	# os.chdir(cwd)
 	return ns3_proc
