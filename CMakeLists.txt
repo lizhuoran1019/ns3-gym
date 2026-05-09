@@ -50,9 +50,8 @@ build_lib(
 )
 
 # need protobuf_generate func to generate messages
-check_function_exists(protobuf_generate protobuf_generate_exists)
-if(${protobuf_generate_exists})
-    message(STATUS "protobuf_generate command found")
+if(COMMAND protobuf_generate)
+  message(STATUS "protobuf_generate command found")
 else()
   message(STATUS "protobuf_generate command not found -> use a local copy from ${CMAKE_CURRENT_SOURCE_DIR}/protobuf-generate.cmake")
   include(${CMAKE_CURRENT_SOURCE_DIR}/protobuf-generate.cmake)
@@ -60,14 +59,14 @@ endif()
 
 
 protobuf_generate(
-  TARGET ${libopengym-obj}
+  TARGET opengym
   IMPORT_DIRS model/
   LANGUAGE cpp
   PROTOC_OUT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/model
 )
 
 protobuf_generate(
-  TARGET ${libopengym-obj}
+  TARGET opengym
   IMPORT_DIRS model/
   LANGUAGE python
   PROTOC_OUT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/model/ns3gym/ns3gym
